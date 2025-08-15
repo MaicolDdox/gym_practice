@@ -10,8 +10,9 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Updated fonts to Space Grotesk and DM Sans for professional design -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Source+Sans+Pro:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
     <!-- Tailwind CSS -->
@@ -21,15 +22,18 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        'playfair': ['Playfair Display', 'serif'],
-                        'source': ['Source Sans Pro', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                        'dm': ['DM Sans', 'sans-serif'],
                     },
                     colors: {
-                        'gym-orange': '#ea580c',
-                        'gym-orange-light': '#fb923c',
-                        'gym-orange-dark': '#c2410c',
-                        'gym-cream': '#fef7ed',
-                        'gym-dark': '#1c1917',
+                        'primary': '#1f2937',
+                        'primary-light': '#374151',
+                        'primary-dark': '#111827',
+                        'accent': '#8b5cf6',
+                        'accent-light': '#a78bfa',
+                        'accent-dark': '#7c3aed',
+                        'neutral': '#f9fafb',
+                        'neutral-dark': '#6b7280',
                     }
                 }
             }
@@ -37,25 +41,25 @@
     </script>
 
     <style>
-        
+
         .glass-effect {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(139, 92, 246, 0.1);
         }
 
         .glass-effect-dark {
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(31, 41, 55, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
         }
 
         .gradient-bg {
-            background: linear-gradient(135deg, #ea580c 0%, #fb923c 50%, #fed7aa 100%);
+            background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #6b7280 100%);
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #ea580c, #fb923c);
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -91,11 +95,11 @@
 
         @keyframes pulse-glow {
             from {
-                box-shadow: 0 0 20px rgba(234, 88, 12, 0.3);
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
             }
 
             to {
-                box-shadow: 0 0 40px rgba(234, 88, 12, 0.6);
+                box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
             }
         }
 
@@ -130,19 +134,7 @@
 
         .input-focus:focus {
             transform: scale(1.02);
-            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
-        }
-
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-
-        .glass-effect-dark {
-            background: rgba(28, 25, 23, 0.8);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(251, 146, 60, 0.2);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
         }
 
         .floating-shapes {
@@ -155,7 +147,7 @@
 
         .floating-shape {
             position: absolute;
-            background: linear-gradient(45deg, rgba(234, 88, 12, 0.1), rgba(251, 146, 60, 0.1));
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(167, 139, 250, 0.1));
             border-radius: 50%;
             animation: float 6s ease-in-out infinite;
         }
@@ -204,42 +196,23 @@
             }
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #ea580c, #fb923c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
         .input-glow:focus {
-            box-shadow: 0 0 20px rgba(234, 88, 12, 0.3);
-            border-color: #ea580c;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            border-color: #8b5cf6;
         }
 
         .btn-glow {
-            box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
             transition: all 0.3s ease;
         }
 
         .btn-glow:hover {
-            box-shadow: 0 6px 25px rgba(234, 88, 12, 0.6);
+            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
             transform: translateY(-2px);
         }
 
         .form-container {
             animation: slideInUp 0.8s ease-out;
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .stagger-animation {
@@ -286,7 +259,7 @@
             animation: ripple-animation 0.6s linear;
             pointer-events: none;
         }
-        
+
         @keyframes ripple-animation {
             to {
                 transform: scale(4);
@@ -298,7 +271,9 @@
     @livewireStyles
 </head>
 
-<body class="min-h-screen gradient-bg font-source">
+<!-- Updated body classes to use new professional font -->
+
+<body class="min-h-screen gradient-bg font-dm">
     <div id="app">
         {{-- Aquí se inyecta el contenido del slot --}}
         {{ $slot }}

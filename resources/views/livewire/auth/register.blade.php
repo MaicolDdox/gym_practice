@@ -25,8 +25,12 @@
 
             <!-- Register Form Container -->
             <div class="glass-effect rounded-2xl p-8 shadow-2xl form-container">
-                <div class="flex flex-col gap-6">
-                    <x-auth-header :title="__('Crear una cuenta')" :description="__('Ingresa tus datos para crear tu cuenta')" />
+                <div class="flex flex-col gap-6" style="color: black">
+                    <!-- Changed text colors to dark for better contrast on white background -->
+                    <div class="text-center">
+                        <h2 class="text-2xl font-space-grotesk font-bold text-primary mb-2">{{ __('Crear Cuenta') }}</h2>
+                        <p class="text-neutral-dark font-dm-sans">{{ __('Ingresa tus datos para crear cuenta') }}</p>
+                    </div>
 
                     <!-- Session Status -->
                     <x-auth-session-status class="text-center" :status="session('status')" />
@@ -35,15 +39,17 @@
                         @csrf
                         <!-- Name -->
                         <div class="stagger-animation" style="transform: translateY(20px);">
-                            <flux:input wire:model="name" :label="__('Nombre completo')" type="text" required
+                            <label class="block text-sm font-medium text-primary">{{ __('Nombre Completo') }}</label>
+                            <flux:input wire:model="name" type="text" required
                                 autofocus autocomplete="name" :placeholder="__('Tu nombre completo')"
                                 style="color: black;"
-                                class="input-glow bg-white/90 border-gym-orange/20 rounded-xl px-4 py-3 text-gym-dark placeholder-gym-dark/50 focus:border-gym-orange focus:ring-gym-orange transition-all duration-300" />
+                                class="input-focus w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-primary placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300" />
                         </div>
 
                         <!-- Email Address -->
                         <div class="stagger-animation" style="transform: translateY(20px);">
-                            <flux:input wire:model="email" :label="__('Correo electrónico')" type="email" required
+                            <label class="block text-sm font-medium text-primary">{{ __('Correo electronico') }}</label>
+                            <flux:input wire:model="email" type="email" required
                                 autocomplete="email" placeholder="correo@ejemplo.com"
                                 style="color: black;"
                                 class="input-glow bg-white/90 border-gym-orange/20 rounded-xl px-4 py-3 text-gym-dark placeholder-gym-dark/50 focus:border-gym-orange focus:ring-gym-orange transition-all duration-300" />
@@ -51,7 +57,8 @@
 
                         <!-- Password -->
                         <div class="stagger-animation" style="transform: translateY(20px);">
-                            <flux:input wire:model="password" :label="__('Contraseña')" type="password" required
+                            <label class="block text-sm font-medium text-primary">{{ __('Contraseña') }}</label>
+                            <flux:input wire:model="password" type="password" required
                                 autocomplete="new-password" :placeholder="__('Tu contraseña')" viewable
                                 style="color: black;"
                                 class="input-glow bg-white/90 border-gym-orange/20 rounded-xl px-4 py-3 text-gym-dark placeholder-gym-dark/50 focus:border-gym-orange focus:ring-gym-orange transition-all duration-300" />
@@ -59,29 +66,36 @@
 
                         <!-- Confirm Password -->
                         <div class="stagger-animation" style="transform: translateY(20px);">
-                            <flux:input wire:model="password_confirmation" :label="__('Confirmar contraseña')"
+                            <label class="block text-sm font-medium text-primary">{{ __('Confirmar contraseña') }}</label>
+                            <flux:input wire:model="password_confirmation"
                                 type="password" required autocomplete="new-password"
                                 :placeholder="__('Confirma tu contraseña')" viewable
                                 style="color: black;"
                                 class="input-glow bg-white/90 border-gym-orange/20 rounded-xl px-4 py-3 text-gym-dark placeholder-gym-dark/50 focus:border-gym-orange focus:ring-gym-orange transition-all duration-300" />
                         </div>
 
-                        <!-- Submit Button -->
-                        <div class="flex items-center justify-end stagger-animation"
-                            style="transform: translateY(20px);">
-                            <flux:button type="submit" variant="primary"
-                                class="w-full btn-glow bg-gradient-to-r from-gym-orange to-gym-orange-light hover:from-gym-orange-dark hover:to-gym-orange text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105">
-                                {{ __('Crear cuenta') }}
+                    <!-- Register Button -->
+                        <div class="flex items-center justify-end">
+                            <flux:button variant="primary" type="submit"
+                                class="w-full bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 pulse-glow">
+                                <span class="flex items-center justify-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                                        </path>
+                                    </svg>
+                                    {{ __('Crear cuenta') }}
+                                </span>
                             </flux:button>
                         </div>
                     </form>
 
                     <!-- Login Link -->
-                    <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-gym-dark/70 stagger-animation"
+                    <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-neutral-dark"
                         style="transform: translateY(20px);">
                         <span>{{ __('¿Ya tienes una cuenta?') }}</span>
-                        <flux:link :href="route('register')" wire:navigate
-                            class="text-gym-orange hover:text-gym-orange-dark font-semibold transition-colors duration-300 hover:underline">
+                        <flux:link :href="route('login')" wire:navigate
+                            class="text-accent hover:text-accent-dark font-semibold transition-colors duration-300 hover:underline">
                             {{ __('Iniciar sesión') }}
                         </flux:link>
                     </div>
