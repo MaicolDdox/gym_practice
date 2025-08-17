@@ -26,26 +26,41 @@
                                 class="space-y-6">
                                 @csrf
 
-                                <!-- Nombre del instructor -->
+                                <!-- Instructor -->
                                 <div>
-                                    <label for="instructor_name" class="block text-sm font-semibold text-gray-700 mb-2">Nombre
-                                        del Instructor</label>
-                                    <input type="text" name="instructor_name" id="instructor_name"
-                                        placeholder="Ingrese el nombre del instructor"
-                                        class="w-full px-4 py-3 bg-white/80 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm">
+                                    <label for="instructor_id"
+                                        class="block text-sm font-semibold text-gray-700 mb-2">Instructor</label>
+                                    <select name="instructor_id" id="instructor_id"
+                                        class="w-full px-4 py-3 bg-white/80 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm">
+                                        <option value="" disabled selected>Selecciona un instructor</option>
+                                        @foreach ($instructors as $instructor)
+                                            <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <!-- Título del evento -->
+                                <div>
+                                    <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">Título del
+                                        Evento</label>
+                                    <input type="text" name="title" id="title"
+                                        placeholder="Ingrese el título del evento"
+                                        class="w-full px-4 py-3 bg-white/80 border border-gray-300 rounded-lg 
+                                      text-gray-800 placeholder-gray-500 focus:outline-none 
+                                        focus:ring-2 focus:ring-purple-500 focus:border-transparent 
+                                        transition-all duration-300 backdrop-blur-sm">
                                 </div>
 
                                 <!-- Tipo de clase -->
                                 <div>
-                                    <label for="type_class" class="block text-sm font-semibold text-gray-700 mb-2">Tipo de
+                                    <label for="type" class="block text-sm font-semibold text-gray-700 mb-2">Tipo de
                                         Clase</label>
                                     <select name="type_class" id="type_class"
                                         class="w-full px-4 py-3 bg-white/80 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm">
                                         <option value="" disabled selected>Selecciona una clase</option>
-                                        <option value="electronica">Electrónica</option>
-                                        <option value="ropa">Yoga</option>
-                                        <option value="hogar">Spa</option>
-                                        <option value="comida">Aeróbicos</option>
+                                        <option value="yoga">Yoga</option>
+                                        <option value="spa">Spa</option>
+                                        <option value="aerobicos">Aeróbicos</option>
                                     </select>
                                 </div>
 

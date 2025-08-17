@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -10,15 +12,16 @@ class EventController extends Controller
 
     public function home()
     {
-        return view('container.dashboard');
+        $usName = Auth::user()->name;
+        return view('events.dashboard', compact('usName'));
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $datos = Event::all();
-        return view('container.list', compact('datos'));
+        $datos = Event::with('instructor')->get();
+        return view('events.list', compact('datos'));
     }
 
     /**
@@ -26,7 +29,9 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('container.create');
+        // Listar solo usuarios con rol instructor
+        $instructors = User::role('instructor')->get();
+        return view('events.create', compact('instructors'));
     }
 
     /**
@@ -35,18 +40,28 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'instructor_name' => ['required', 'string', 'max:255'],
-            'type_class'      => ['required', 'string', 'max:255'],
-            'date_hour'       => ['required', 'date']
+            'title'         => ['required', 'string', 'max:255'],
+            'type_class'    => ['required', 'string', 'max:255'],
+            'date_hour'     => ['required', 'date'],
+            'instructor_id' => ['required', 'exists:users,id'],
         ]);
 
-        // Ajustar formato para MySQL DATETIME
+        // Ajustar formato datetime
         $validated['date_hour'] = date('Y-m-d H:i:s', strtotime($validated['date_hour']));
 
-        Event::create($validated);
+        // Reemplazar instructor_id por user_id
+        $validated['user_id'] = $validated['instructor_id'];
+        unset($validated['instructor_id']);
+
+        // Crear evento
+        $event = Event::create($validated);
+
+        // Registrar al instructor también como asistente (opcional)
+        $event->users()->attach($validated['user_id']);
 
         return redirect()->route('events.index');
     }
+
 
 
     /**
@@ -62,8 +77,8 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        
-        return view('container.edit', compact('event'));
+        $instructors = User::role('instructor')->get();
+        return view('events.edit', compact('event', 'instructors'));
     }
 
     /**
@@ -72,17 +87,21 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $validated = $request->validate([
-            'instructor_name' => ['required', 'string', 'max:255'],
-            'type_class'      => ['required', 'string', 'max:255'],
-            'date_hour'       => ['required', 'date']
+            'user_id'    => ['required', 'exists:users,id'],
+            'title'      => ['required', 'string', 'max:255'],
+            'type_class' => ['required', 'string', 'max:255'],
+            'date_hour'  => ['required', 'date']
         ]);
 
-        $validated['date_hour'] = date('Y-m-d H:i:s', strtotime($validated['date_hour']));
+        $validated['date_hour'] = \Carbon\Carbon::parse($validated['date_hour'])->format('Y-m-d H:i:s');
 
         $event->update($validated);
 
-        return redirect()->route('events.index');
+        return redirect()
+            ->route('events.index')
+            ->with('success', 'El evento se actualizó correctamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.

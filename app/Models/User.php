@@ -56,7 +56,20 @@ class User extends Authenticatable
         return Str::of($this->name)
             ->explode(' ')
             ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
+            ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    public function events()
+    {
+        // Un usuario puede asistir a muchos eventos (pivot event_user)
+        return $this->belongsToMany(Event::class, 'event_user')
+            ->withTimestamps();
+    }
+
+    public function instructedEvents()
+    {
+        // Un usuario con rol instructor puede impartir muchos eventos
+        return $this->hasMany(Event::class, 'user_id');
     }
 }

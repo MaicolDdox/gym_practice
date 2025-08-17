@@ -28,27 +28,52 @@
 
                                 <!-- Nombre del instructor -->
                                 <div>
-                                    <label for="instructor_name" class="block text-sm font-semibold text-gray-700 mb-2">Nombre
-                                        del Instructor</label>
-                                    <input type="text" name="instructor_name" id="instructor_name"
-                                        placeholder="Ingrese el nombre del instructor"
-                                        value="{{ old('instructor_name', $event->instructor_name) }}"
-                                        class="w-full px-4 py-3 bg-white/80 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm">
+                                    <label for="user_id" class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Instructor
+                                    </label>
+                                    <select name="user_id" id="user_id"
+                                        class="w-full px-4 py-3 bg-white/80 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm">
+                                        <option value="" disabled>Selecciona un instructor</option>
+                                        @foreach ($instructors as $instructor)
+                                            <option value="{{ $instructor->id }}"
+                                                {{ old('user_id', $event->user_id) == $instructor->id ? 'selected' : '' }}>
+                                                {{ $instructor->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <!-- Título del evento -->
+                                <div>
+                                    <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Título del Evento
+                                    </label>
+                                    <input type="text" name="title" id="title"
+                                        class="w-full px-4 py-3 bg-white/80 border border-gray-300 rounded-lg text-gray-800 
+                                        focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent 
+                                        transition-all duration-300 backdrop-blur-sm"
+                                        value="{{ old('title', $event->title) }}">
                                 </div>
 
                                 <!-- Tipo de clase -->
                                 <div>
-                                    <label for="type_class" class="block text-sm font-semibold text-gray-700 mb-2">Tipo de
-                                        Clase</label>
+                                    <label for="type_class" class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Tipo de Clase
+                                    </label>
                                     <select name="type_class" id="type_class"
                                         class="w-full px-4 py-3 bg-white/80 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm">
-                                        <option value="" disabled selected>Selecciona una clase</option>
-                                        <option value="electronica" {{ old('type_class', $event->type_class) == 'electronica'  ? 'selected' : ''}}>Electrónica</option>
-                                        <option value="ropa" {{ old('type_class', $event->type_class) == 'ropa'  ? 'selected' : ''}}>Yoga</option>
-                                        <option value="hogar" {{ old('type_class', $event->type_class) == 'hogar'  ? 'selected' : ''}}>Spa</option>
-                                        <option value="comida" {{ old('type_class', $event->type_class) == 'comida' ? 'selected' : ''}}>Aeróbicos</option>
+                                        <option value="" disabled>Selecciona una clase</option>
+                                        <option value="yoga"
+                                            {{ old('type_class', $event->type_class) == 'yoga' ? 'selected' : '' }}>Yoga
+                                        </option>
+                                        <option value="spa"
+                                            {{ old('type_class', $event->type_class) == 'spa' ? 'selected' : '' }}>Spa</option>
+                                        <option value="aerobicos"
+                                            {{ old('type_class', $event->type_class) == 'aerobicos' ? 'selected' : '' }}>
+                                            Aeróbicos</option>
                                     </select>
                                 </div>
+
 
                                 <!-- Fecha -->
                                 <div>

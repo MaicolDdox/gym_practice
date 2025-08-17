@@ -16,23 +16,43 @@ class RoleSeeder extends Seeder
     {
         $rolAdmin = Role::create(['name' => 'admin']);
         $rolCliente = Role::create(['name' => 'cliente']);
+        $rolInstructor = Role::create(['name' => 'instructor']);
 
-        //permisos 
+        // permisos eventos
         Permission::create(['name' => 'events.index']);
         Permission::create(['name' => 'events.create']);
         Permission::create(['name' => 'events.edit']);
         Permission::create(['name' => 'events.delete']);
+        Permission::create(['name' => 'events.participate']);
+        Permission::create(['name' => 'events.cancel']);
 
-        //asignar permisos
+        // permisos instructores
+        Permission::create(['name' => 'instructors.index']);
+        Permission::create(['name' => 'instructors.create']);
+        Permission::create(['name' => 'instructors.edit']);
+        Permission::create(['name' => 'instructors.delete']);
+
+
+        // asignar permisos
         $rolAdmin->givePermissionTo([
             'events.index',
             'events.create',
             'events.edit',
-            'events.delete'
+            'events.delete',
+            'instructors.index',
+            'instructors.create',
+            'instructors.edit',
+            'instructors.delete',
+        ]);
+
+        $rolInstructor->givePermissionTo([
+            'events.index', // solo ve los eventos que le corresponden
         ]);
 
         $rolCliente->givePermissionTo([
-            'events.index'
+            'events.index',
+            'events.participate',
+            'events.cancel',
         ]);
         
     }
